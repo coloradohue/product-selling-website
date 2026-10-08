@@ -31,6 +31,10 @@
                     <i class="fas fa-lock"></i>
                     <span>Admin</span>
                 </button>
+                <button class="nav-btn cart-btn" id="cartBtn" title="View Cart">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cartCount">0</span>
+                </button>
             </div>
         </div>
     </nav>
@@ -53,11 +57,311 @@
             </div>
         </section>
 
+        <!-- Product Description Page -->
+        <section id="productDescriptionPage" class="page">
+            <div class="product-description-container">
+                <div class="product-desc-back">
+                    <button class="btn-back" onclick="goToPage('shop')">
+                        <i class="fas fa-arrow-left"></i> Back to Shop
+                    </button>
+                </div>
+                
+                <div class="product-desc-layout">
+                    <!-- Product Images Section -->
+                    <div class="product-images-section">
+                        <div class="main-image-container">
+                            <img id="mainProductImage" src="" alt="Product" class="main-product-image" />
+                            <div class="image-badge" id="imageBadge">1/3</div>
+                        </div>
+                        <div class="thumbnail-images">
+                            <div class="thumbnail-wrapper">
+                                <img id="thumb1" src="" alt="Thumbnail 1" class="thumbnail-image active" onclick="changeMainImage(1)" />
+                            </div>
+                            <div class="thumbnail-wrapper">
+                                <img id="thumb2" src="" alt="Thumbnail 2" class="thumbnail-image" onclick="changeMainImage(2)" />
+                            </div>
+                            <div class="thumbnail-wrapper">
+                                <img id="thumb3" src="" alt="Thumbnail 3" class="thumbnail-image" onclick="changeMainImage(3)" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Product Details Section -->
+                    <div class="product-details-section">
+                        <div class="product-header">
+                            <h1 id="descProductName"></h1>
+                            <span class="product-rating">
+                                <i class="fas fa-star"></i> 4.5/5 (320 reviews)
+                            </span>
+                        </div>
+
+                        <div class="price-section">
+                            <div class="current-price">
+                                <span class="price-label">Price:</span>
+                                <span id="descProductPrice" class="price-amount">$0.00</span>
+                            </div>
+                            <div class="original-price">
+                                <span class="original-price-amount" id="descOriginalPrice">$0.00</span>
+                                <span class="discount-badge" id="discountBadge">20% OFF</span>
+                            </div>
+                        </div>
+
+                        <div class="stock-info">
+                            <span id="descProductStock" class="stock-text">Stock: 50</span>
+                            <div class="stock-bar">
+                                <div id="stockProgress" class="stock-progress"></div>
+                            </div>
+                        </div>
+
+                        <div class="category-section">
+                            <strong>Category:</strong>
+                            <span id="descProductCategory" class="category-badge">Electronics</span>
+                        </div>
+
+                        <div class="description-section">
+                            <h3>Product Description</h3>
+                            <p id="descProductDescription"></p>
+                        </div>
+
+                        <div class="features-section">
+                            <h3>Key Features</h3>
+                            <ul id="productFeatures" class="features-list">
+                                <li>High Quality</li>
+                                <li>Durable Material</li>
+                                <li>Warranty Included</li>
+                                <li>Fast Shipping</li>
+                            </ul>
+                        </div>
+
+                        <div class="quantity-section">
+                            <h3>Quantity</h3>
+                            <div class="quantity-selector-large">
+                                <button class="qty-btn" onclick="decreaseQuantityDesc()">−</button>
+                                <input type="number" id="quantityInputDesc" class="quantity-input-large" value="1" min="1" />
+                                <button class="qty-btn" onclick="increaseQuantityDesc()">+</button>
+                            </div>
+                            <p class="qty-notice" id="qtyNotice"></p>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="btn btn-primary-large" onclick="addToCartFromDescription()">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart
+                            </button>
+                            <button class="btn btn-secondary-large" onclick="goToCheckout()">
+                                <i class="fas fa-credit-card"></i> Buy Now
+                            </button>
+                        </div>
+
+                        <div class="additional-info">
+                            <div class="info-item">
+                                <i class="fas fa-shipping-fast"></i>
+                                <div>
+                                    <strong>Free Shipping</strong>
+                                    <p>On orders over $50</p>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <div>
+                                    <strong>Secure Payment</strong>
+                                    <p>100% secure checkout</p>
+                                </div>
+                            </div>
+                            <div class="info-item">
+                                <i class="fas fa-undo"></i>
+                                <div>
+                                    <strong>Easy Returns</strong>
+                                    <p>30-day return policy</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- My Orders Page -->
         <section id="ordersPage" class="page">
             <h1>My Orders</h1>
             <div id="ordersList" class="orders-list">
                 <!-- Orders will be loaded here -->
+            </div>
+        </section>
+
+        <!-- Checkout Page -->
+        <section id="checkoutPage" class="page">
+            <div class="checkout-container">
+                <div class="checkout-back">
+                    <button class="btn-back" onclick="goToPage('shop')">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                </div>
+                
+                <h1>Checkout</h1>
+                
+                <div class="checkout-layout">
+                    <!-- Order Summary -->
+                    <div class="checkout-summary">
+                        <h2>Order Summary</h2>
+                        <div id="checkoutItems" class="checkout-items">
+                            <!-- Items will be added here -->
+                        </div>
+                        <div class="checkout-totals">
+                            <div class="total-row">
+                                <span>Subtotal:</span>
+                                <span id="subtotal">$0.00</span>
+                            </div>
+                            <div class="total-row">
+                                <span>Shipping:</span>
+                                <span id="shipping">$5.00</span>
+                            </div>
+                            <div class="total-row">
+                                <span>Tax:</span>
+                                <span id="tax">$0.00</span>
+                            </div>
+                            <div class="total-row total-final">
+                                <span>Total:</span>
+                                <span id="totalAmount">$0.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment Form -->
+                    <div class="payment-form-section">
+                        <h2>Shipping & Payment Information</h2>
+                        
+                        <form id="checkoutForm" class="checkout-form">
+                            <!-- Shipping Information -->
+                            <fieldset class="form-section">
+                                <legend>Shipping Address</legend>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="fullName">Full Name *</label>
+                                        <input type="text" id="fullName" name="fullName" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email *</label>
+                                        <input type="email" id="email" name="email" required />
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="phone">Phone Number *</label>
+                                        <input type="tel" id="phone" name="phone" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="country">Country *</label>
+                                        <select id="country" name="country" required>
+                                            <option value="">Select Country</option>
+                                            <option value="USA">United States</option>
+                                            <option value="Canada">Canada</option>
+                                            <option value="UK">United Kingdom</option>
+                                            <option value="India">India</option>
+                                            <option value="Australia">Australia</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="address">Street Address *</label>
+                                    <input type="text" id="address" name="address" required />
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="city">City *</label>
+                                        <input type="text" id="city" name="city" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="state">State/Province *</label>
+                                        <input type="text" id="state" name="state" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="zip">ZIP/Postal Code *</label>
+                                        <input type="text" id="zip" name="zip" required />
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <!-- Payment Information -->
+                            <fieldset class="form-section">
+                                <legend>Payment Method</legend>
+                                
+                                <div class="payment-methods">
+                                    <label class="payment-method-option">
+                                        <input type="radio" name="paymentMethod" value="card" checked />
+                                        <span><i class="fas fa-credit-card"></i> Credit/Debit Card</span>
+                                    </label>
+                                    <label class="payment-method-option">
+                                        <input type="radio" name="paymentMethod" value="paypal" />
+                                        <span><i class="fab fa-paypal"></i> PayPal</span>
+                                    </label>
+                                    <label class="payment-method-option">
+                                        <input type="radio" name="paymentMethod" value="upi" />
+                                        <span><i class="fas fa-mobile-alt"></i> UPI (India)</span>
+                                    </label>
+                                </div>
+
+                                <!-- Card Details (shown by default) -->
+                                <div id="cardDetails" class="card-details">
+                                    <div class="form-group">
+                                        <label for="cardName">Cardholder Name *</label>
+                                        <input type="text" id="cardName" name="cardName" required />
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="cardNumber">Card Number *</label>
+                                        <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" required />
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="expiry">Expiry Date *</label>
+                                            <input type="text" id="expiry" name="expiry" placeholder="MM/YY" maxlength="5" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="cvv">CVV *</label>
+                                            <input type="text" id="cvv" name="cvv" placeholder="123" maxlength="3" required />
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- PayPal Option (hidden by default) -->
+                                <div id="paypalDetails" class="payment-option-details" style="display: none;">
+                                    <p>You will be redirected to PayPal to complete your payment securely.</p>
+                                </div>
+
+                                <!-- UPI Option (hidden by default) -->
+                                <div id="upiDetails" class="payment-option-details" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="upiId">UPI ID *</label>
+                                        <input type="text" id="upiId" name="upiId" placeholder="yourname@upi" />
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <!-- Terms & Conditions -->
+                            <div class="form-group checkbox">
+                                <label>
+                                    <input type="checkbox" id="terms" name="terms" required />
+                                    <span>I agree to the Terms & Conditions and Privacy Policy</span>
+                                </label>
+                            </div>
+
+                            <!-- Action Buttons -->
+                            <div class="checkout-actions">
+                                <button type="button" class="btn btn-secondary-large" onclick="goToPage('shop')">
+                                    Continue Shopping
+                                </button>
+                                <button type="submit" class="btn btn-primary-large">
+                                    <i class="fas fa-lock"></i> Complete Order
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -83,8 +387,16 @@
                         <input type="text" id="productCategory" placeholder="e.g., Electronics, Fashion" required>
                     </div>
                     <div class="form-group">
-                        <label for="productImage">Image URL:</label>
+                        <label for="productImage">Image URL (Main):</label>
                         <input type="url" id="productImage" placeholder="https://example.com/image.jpg" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productImage2">Image URL 2:</label>
+                        <input type="url" id="productImage2" placeholder="https://example.com/image2.jpg">
+                    </div>
+                    <div class="form-group">
+                        <label for="productImage3">Image URL 3:</label>
+                        <input type="url" id="productImage3" placeholder="https://example.com/image3.jpg">
                     </div>
                     <div class="form-group">
                         <label for="productStock">Stock Quantity:</label>
@@ -134,16 +446,27 @@
         </section>
     </div>
 
-    <!-- Modal for Product Details -->
-    <div id="productModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div id="modalBody"></div>
-        </div>
-    </div>
-
     <!-- Cart Notification -->
     <div id="notification" class="notification"></div>
+
+    <!-- Cart Drawer -->
+    <div id="cartDrawer" class="cart-drawer">
+        <div class="cart-header">
+            <h2>Shopping Cart</h2>
+            <button class="cart-close" onclick="toggleCartDrawer()">×</button>
+        </div>
+        <div id="cartItems" class="cart-items-list">
+            <!-- Cart items will be displayed here -->
+        </div>
+        <div class="cart-footer">
+            <div class="cart-total">
+                <strong>Total:</strong>
+                <span id="cartTotal">$0.00</span>
+            </div>
+            <button class="btn btn-primary-large" onclick="proceedToCheckout()">Proceed to Checkout</button>
+            <button class="btn btn-secondary-large" onclick="toggleCartDrawer()">Continue Shopping</button>
+        </div>
+    </div>
 
     <script src="app.js"></script>
 </body>
