@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Store</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <i class="fas fa-store"></i> ProductStore
+            </div>
+            <div class="navbar-icons">
+                <button class="nav-btn" id="shopBtn" title="Shop">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>Shop</span>
+                </button>
+                <button class="nav-btn" id="ordersBtn" title="My Orders">
+                    <i class="fas fa-box"></i>
+                    <span>My Orders</span>
+                </button>
+                <button class="nav-btn admin-only" id="customBtn" title="Add Custom Product">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Custom</span>
+                </button>
+                <button class="nav-btn admin-toggle" id="adminToggle" title="Toggle Admin Mode">
+                    <i class="fas fa-lock"></i>
+                    <span>Admin</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Shop Page -->
+        <section id="shopPage" class="page active">
+            <h1>Shop Products</h1>
+            <div class="search-filter">
+                <input type="text" id="searchProduct" placeholder="Search products...">
+                <select id="sortBy">
+                    <option value="name">Sort by Name</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                </select>
+            </div>
+            <div id="productGrid" class="product-grid">
+                <!-- Products will be loaded here -->
+            </div>
+        </section>
+
+        <!-- My Orders Page -->
+        <section id="ordersPage" class="page">
+            <h1>My Orders</h1>
+            <div id="ordersList" class="orders-list">
+                <!-- Orders will be loaded here -->
+            </div>
+        </section>
+
+        <!-- Custom Product Page (Admin Only) -->
+        <section id="customPage" class="page">
+            <h1>Add Custom Product</h1>
+            <div class="admin-panel">
+                <form id="productForm" class="product-form">
+                    <div class="form-group">
+                        <label for="productName">Product Name:</label>
+                        <input type="text" id="productName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productPrice">Price:</label>
+                        <input type="number" id="productPrice" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productDescription">Description:</label>
+                        <textarea id="productDescription" rows="4" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="productCategory">Category:</label>
+                        <input type="text" id="productCategory" placeholder="e.g., Electronics, Fashion" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productImage">Image URL:</label>
+                        <input type="url" id="productImage" placeholder="https://example.com/image.jpg" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productStock">Stock Quantity:</label>
+                        <input type="number" id="productStock" min="0" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Product</button>
+                </form>
+
+                <!-- Admin Data Dashboard -->
+                <div class="admin-dashboard">
+                    <h2>Admin Dashboard</h2>
+                    <div class="dashboard-stats">
+                        <div class="stat-card">
+                            <h3>Total Products</h3>
+                            <p id="totalProducts">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Total Orders</h3>
+                            <p id="totalOrders">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Total Revenue</h3>
+                            <p id="totalRevenue">$0.00</p>
+                        </div>
+                    </div>
+
+                    <div class="admin-controls">
+                        <h3>Manage Products</h3>
+                        <div id="adminProductsList" class="admin-products-list">
+                            <!-- Admin products will be listed here -->
+                        </div>
+                    </div>
+
+                    <div class="admin-controls">
+                        <h3>View All Orders</h3>
+                        <div id="adminOrdersList" class="admin-orders-list">
+                            <!-- Admin orders view will be here -->
+                        </div>
+                    </div>
+
+                    <div class="admin-controls">
+                        <button id="exportData" class="btn btn-secondary">Export Data to Google Sheets</button>
+                        <button id="clearAllData" class="btn btn-danger">Clear All Local Data</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal for Product Details -->
+    <div id="productModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- Cart Notification -->
+    <div id="notification" class="notification"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
